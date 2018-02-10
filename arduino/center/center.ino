@@ -33,11 +33,11 @@ void loop() {
 
   
   delay(1000);
-  set_pos(650);
+//  set_pos(650);
   delay(1000);
   set_pos(1500);
   delay(1000);
-  set_pos(2300);
+//  set_pos(2300);
   delay(1000);
   set_pos(1500);
 

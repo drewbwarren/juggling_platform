@@ -2,8 +2,8 @@
 
 const float pi = 3.14159, theta_r = radians(48.0), theta_p = radians(23.2), theta_s[] = {-pi/3,
 2*pi/3, pi, 0, pi/3, -2*pi/3},
-RD = 2.395, PD = 3.3, L1 = 1.0, L2 = 4.72, z_home = 4.25, servo_min = -radians(80), servo_max = radians(80),
-servo_mult = 1650/3.1415,
+RD = 2.395, PD = 3.3, L1 = .617, L2 = 5.2813, z_home = 5.25, servo_min = -radians(80), servo_max = radians(80),
+servo_mult = 400/(pi/4),
 p[2][6] = {{PD*cos(pi/6 + theta_p), PD*cos(pi/6 - theta_p), PD*cos(-(pi/2 - theta_p)),
 -PD*cos(-(pi/2 - theta_p)), -PD*cos(pi/6 - theta_p), -PD*cos(pi/6 + theta_p)},
 {PD*sin(pi/6 + theta_p), PD*sin(pi/6 - theta_p), PD*sin(-(pi/2 - theta_p)),
@@ -35,7 +35,6 @@ servo_zero = zero angles for each servo (horizontal)
 
 
 Servo servo[6];
-//float theta_a[6] = {1.46,1.46,1.46,1.46,1.46,1.46};
 /*
 Servos 0, 2, 4: reversed (+ = down, - = up)
 Servos 1, 3, 5: normal (+ = up, - = down)
@@ -67,13 +66,13 @@ void loop()
   */
 
   // Home
-  pe[2] = 0;
-  Serial.print("home\n");
-  kinematics(pe);
-  delay(1000);
+//  pe[2] = 0;
+//  Serial.print("home\n");
+//  kinematics(pe);
+//  delay(1000);
 
   // Up
-  pe[2] = 1;
+  pe[2] = .5;
   Serial.print("up\n");
   kinematics(pe);
   delay(1000);
@@ -91,7 +90,7 @@ void loop()
   delay(1000);
 
   // Forward
-  pe[1] = 1;
+  pe[1] = -1;
   Serial.print("forward\n");
   kinematics(pe);
   delay(1000);
@@ -100,7 +99,7 @@ void loop()
   delay(1000);
 
   // x rotation - pitch
-  pe[3] = radians(10);
+  pe[3] = radians(-10);
   Serial.print("pitch\n");
   kinematics(pe);
   delay(1000);
@@ -108,7 +107,7 @@ void loop()
   kinematics(pe);
   delay(1000);
 
-  // y rotation - roll
+//   y rotation - roll
   pe[4] = radians(10);
   Serial.print("roll\n");
   kinematics(pe);
