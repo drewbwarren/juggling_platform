@@ -19,7 +19,7 @@ theta_s = orientation of the servos
 RD = distance to end eector attachment points
 PD = distance to servo rotation points
 L1 = servo arm length
-L2 = connecting arm length
+L2 = connecting arm length 
 z_home = default z height with servo arms horizontal
 servo_min = lower limit for servo arm angle
 servo_max = upper limit for servo arm angle
@@ -72,59 +72,114 @@ void loop()
 //  delay(1000);
 
   // Up
-  pe[2] = .5;
-  Serial.print("up\n");
-  kinematics(pe);
-  delay(1000);
-  pe[2] = 0;
-  kinematics(pe);
-  delay(1000);
+//  pe[2] = .5;
+//  Serial.print("up\n");
+//  kinematics(pe);
+//  delay(1000);
+//  pe[2] = 0;
+//  kinematics(pe);
+//  delay(1000);
+//
+//  // Right
+//  pe[0] = 1;
+//  Serial.print("right\n");
+//  kinematics(pe);
+//  delay(1000);
+//  pe[0] = 0;
+//  kinematics(pe);
+//  delay(1000);
+//
+//  // Forward
+//  pe[1] = -1;
+//  Serial.print("forward\n");
+//  kinematics(pe);
+//  delay(1000);
+//  pe[1] = 0;
+//  kinematics(pe);
+//  delay(1000);
+//
+//  // x rotation - pitch
+//  pe[3] = radians(-10);
+//  Serial.print("pitch\n");
+//  kinematics(pe);
+//  delay(1000);
+//  pe[3] = 0;
+//  kinematics(pe);
+//  delay(1000);
+//
+////   y rotation - roll
+//  pe[4] = radians(10);
+//  Serial.print("roll\n");
+//  kinematics(pe);
+//  delay(1000);
+//  pe[4] = 0;
+//  kinematics(pe);
+//  delay(1000);
+//
+//  // z rotation - yaw
+//  pe[5] = radians(10);
+//  Serial.print("yaw\n");
+//  kinematics(pe);
+//  delay(1000);
+//  pe[5] = 0;
+//  kinematics(pe);
+//  delay(1000);
 
-  // Right
-  pe[0] = 1;
-  Serial.print("right\n");
-  kinematics(pe);
-  delay(1000);
-  pe[0] = 0;
-  kinematics(pe);
-  delay(1000);
 
-  // Forward
-  pe[1] = -1;
-  Serial.print("forward\n");
-  kinematics(pe);
-  delay(1000);
-  pe[1] = 0;
-  kinematics(pe);
-  delay(1000);
 
-  // x rotation - pitch
-  pe[3] = radians(-10);
-  Serial.print("pitch\n");
-  kinematics(pe);
-  delay(1000);
-  pe[3] = 0;
-  kinematics(pe);
-  delay(1000);
+//  Circular Motion
+  for (int i = 0; i < 2000; i++)
+  {
+    pe[3] = radians(5)*sin(2*3.1415*i/500.0);
+    pe[4] = radians(5)*cos(2*3.1415*i/500.0);
+    kinematics(pe);
+  }
+//  for (int i = 0; i < 200; i++)
+//  {
+//    pe[0] = 0;
+//    pe[1] = 0;
+//    pe[2] = 0;
+//    pe[3] = 0;
+//    pe[4] = 0;
+//    pe[5] = 0;
+//    kinematics(pe);
+//  }
 
-//   y rotation - roll
-  pe[4] = radians(10);
-  Serial.print("roll\n");
-  kinematics(pe);
-  delay(1000);
-  pe[4] = 0;
-  kinematics(pe);
-  delay(1000);
 
-  // z rotation - yaw
-  pe[5] = radians(10);
-  Serial.print("yaw\n");
-  kinematics(pe);
-  delay(1000);
-  pe[5] = 0;
-  kinematics(pe);
-  delay(1000);
-  
+//  Level testing
+//  for (int i = 0; i < 500; i++)
+//  {
+//    pe[0] = 0;
+//    pe[1] = 0;
+//    pe[2] = 0;
+//    pe[3] = 0;
+//    pe[4] = 0;
+//    pe[5] = 0;
+//    kinematics(pe);
+//  }
+//  delay(5000);
+//  for (int i = 0; i < 500; i++)
+//  {
+//    pe[0] = 0;
+//    pe[1] = 0;
+//    pe[2] = 0;
+//    pe[3] = radians(10);
+//    pe[4] = 0;
+//    pe[5] = 0;
+//    kinematics(pe);
+//  }
+//  delay(5000);
+//  for (int i = 0; i < 500; i++)
+//  {
+//    pe[0] = 0;
+//    pe[1] = 0;
+//    pe[2] = 0;
+//    pe[3] = 0;
+//    pe[4] = radians(10);
+//    pe[5] = 0;
+//    kinematics(pe);
+//    delay(5000);
+//  }
   
 }
 
