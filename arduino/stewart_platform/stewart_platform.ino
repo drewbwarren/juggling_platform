@@ -72,13 +72,13 @@ void loop()
 //  delay(1000);
 
   // Up
-//  pe[2] = .5;
-//  Serial.print("up\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[2] = 0;
-//  kinematics(pe);
-//  delay(1000);
+  pe[2] = 1;
+  Serial.print("up\n");
+  kinematics(pe);
+  delay(1000);
+  pe[2] = 0;
+  kinematics(pe);
+  delay(1000);
 //
 //  // Right
 //  pe[0] = 1;
@@ -128,12 +128,12 @@ void loop()
 
 
 //  Circular Motion
-  for (int i = 0; i < 2000; i++)
-  {
-    pe[3] = radians(5)*sin(2*3.1415*i/500.0);
-    pe[4] = radians(5)*cos(2*3.1415*i/500.0);
-    kinematics(pe);
-  }
+//  for (int i = 0; i < 2000; i++)
+//  {
+//    pe[3] = radians(5)*sin(2*3.1415*i/500.0);
+//    pe[4] = radians(5)*cos(2*3.1415*i/500.0);
+//    kinematics(pe);
+//  }
 //  for (int i = 0; i < 200; i++)
 //  {
 //    pe[0] = 0;
