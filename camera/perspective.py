@@ -10,11 +10,11 @@ def main():
     rows, cols, ch = img.shape
 
     pts1 = np.float32([[92,380],[440,363],[345,141,],[98,136]])
-    pts2 = np.float32([[0,300],[300,300],[300,0],[0,0]])
+    pts2 = np.float32([[0,30*11],[255,30*11],[255,0],[0,0]])
 
     M = cv2.getPerspectiveTransform(pts1,pts2)
 
-    dst = cv2.warpPerspective(img,M,(300,300))
+    dst = cv2.warpPerspective(img,M,(255,30*11))
 
     plt.subplot(121),plt.imshow(img),plt.title('Input')
     plt.subplot(122),plt.imshow(dst),plt.title('Output')
