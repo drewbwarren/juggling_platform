@@ -2,7 +2,7 @@
 
 const float pi = 3.14159, theta_r = radians(48.0), theta_p = radians(23.2), theta_s[] = {-pi/3,
 2*pi/3, pi, 0, pi/3, -2*pi/3},
-RD = 2.395, PD = 3.3, L1 = .617, L2 = 5.2813, z_home = 5.25, servo_min = -radians(80), servo_max = radians(80),
+RD = 2.395, PD = 3.3, L1 = 1.00, L2 = 5.2813, z_home = 5.25, servo_min = -radians(80), servo_max = radians(80),
 servo_mult = 400/(pi/4),
 p[2][6] = {{PD*cos(pi/6 + theta_p), PD*cos(pi/6 - theta_p), PD*cos(-(pi/2 - theta_p)),
 -PD*cos(-(pi/2 - theta_p)), -PD*cos(pi/6 - theta_p), -PD*cos(pi/6 + theta_p)},
@@ -18,7 +18,7 @@ theta_p = angle between rotation points
 theta_s = orientation of the servos
 RD = distance to end eector attachment points
 PD = distance to servo rotation points
-L1 = servo arm length
+L1 = servo arm length - old arm (servo horn) is .617
 L2 = connecting arm length 
 z_home = default z height with servo arms horizontal
 servo_min = lower limit for servo arm angle
@@ -27,7 +27,22 @@ servo_mult = multiplier to convert to milliseconds
 p = location of servo rotation points in base frame [x/y][1-6]
 re = location of attachment points in end eector frame [x/y][1-6]
 */
-const int servo_pin[] = {9,3, 5, 11, 6, 10}, servo_zero[6] = {1710, 1280, 1700, 1300, 1680, 1300};
+const int servo_pin[] = {9,3, 5, 11, 6, 10}, servo_zero[6] = {1519, 1471, 1509, 1491, 1489, 1491};
+/*
+ * 0
+1519.30
+1
+1470.70
+2
+1509.30
+3
+1490.70
+4
+1489.30
+5
+1490.70
+
+ */
 /*
 servo_pin = servo pin assignments,
 servo_zero = zero angles for each servo (horizontal)
@@ -66,74 +81,41 @@ void loop()
   */
 
   // Home
-//  pe[2] = 0;
-//  Serial.print("home\n");
-//  kinematics(pe);
-//  delay(1000);
-
-  // Up
-//  pe[2] = 1;
-//  Serial.print("up\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[2] = 0;
-//  kinematics(pe);
-//  delay(1000);
-//
-//  // Right
-//  pe[0] = 1;
-//  Serial.print("right\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[0] = 0;
-//  kinematics(pe);
-//  delay(1000);
-//
-//  // Forward
-//  pe[1] = -1;
-//  Serial.print("forward\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[1] = 0;
-//  kinematics(pe);
-//  delay(1000);
-//
-//  // x rotation - pitch
-//  pe[3] = radians(-10);
-//  Serial.print("pitch\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[3] = 0;
-//  kinematics(pe);
-//  delay(1000);
-//
-////   y rotation - roll
-//  pe[4] = radians(10);
-//  Serial.print("roll\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[4] = 0;
-//  kinematics(pe);
-//  delay(1000);
-//
-//  // z rotation - yaw
-//  pe[5] = radians(10);
-//  Serial.print("yaw\n");
-//  kinematics(pe);
-//  delay(1000);
-//  pe[5] = 0;
-//  kinematics(pe);
-//  delay(1000);
+//  for(int i = 0; i < 6; i++)
+//  {
+//    servo[i].attach(servo_pin[i]);
+//    servo[i].writeMicroseconds(servo_zero[i]);
+//  }
+  kinematics(pe);           
 
 
+
+// Up and down
+//for (int i = 0; i < 500; i++)
+//{
+////  pe[2] = -.1;
+//  pe[2] = -.05;
+//  kinematics(pe);
+//}
+//for (int i = 0; i < 500; i++)
+//{
+////  pe[2] = .3;
+//  pe[2] = .1;
+//  kinematics(pe);
+//}
+
+//delay(400);
 
 //  Circular Motion
-  for (int i = 0; i < 2000; i++)
-  {
-    pe[3] = radians(5)*sin(2*3.1415*i/500.0);
-    pe[4] = radians(5)*cos(2*3.1415*i/500.0);
-    kinematics(pe);
-  }
+//  for (int i = 0; i < 2000; i++)
+//  {
+////    pe[2] = .3*sin(2*3.1415*i/50.0) + 0.03;
+//    pe[3] = radians(2.5)*cos(2*3.1415*i/500.0);
+//
+//    
+//
+//    kinematics(pe);
+//  }
 //  for (int i = 0; i < 200; i++)
 //  {
 //    pe[0] = 0;
@@ -147,7 +129,7 @@ void loop()
 
 
 //  Level testing
-//  for (int i = 0; i < 500; i++)
+//  for (int i = 0; i < 100; i++)
 //  {
 //    pe[0] = 0;
 //    pe[1] = 0;
@@ -157,29 +139,30 @@ void loop()
 //    pe[5] = 0;
 //    kinematics(pe);
 //  }
-//  delay(5000);
-//  for (int i = 0; i < 500; i++)
+//  delay(1000);
+//  for (int i = 0; i < 100; i++)
 //  {
 //    pe[0] = 0;
 //    pe[1] = 0;
 //    pe[2] = 0;
-//    pe[3] = radians(10);
+//    pe[3] = radians(-3);
 //    pe[4] = 0;
 //    pe[5] = 0;
 //    kinematics(pe);
 //  }
-//  delay(5000);
-//  for (int i = 0; i < 500; i++)
+//  delay(1000);
+//  for (int i = 0; i < 100; i++)
 //  {
 //    pe[0] = 0;
 //    pe[1] = 0;
 //    pe[2] = 0;
-//    pe[3] = 0;
-//    pe[4] = radians(10);
+//    pe[3] = radians(3);
+//    pe[4] = 0;
 //    pe[5] = 0;
 //    kinematics(pe);
-//    delay(5000);
+//    
 //  }
+//  delay(1000);
   
 }
 
@@ -223,7 +206,8 @@ void kinematics(float pe[6])
 //    Serial.print("\nValue:\t");
 //    Serial.print(theta_a[i]);
 //    Serial.print("\t");
-//    Serial.print(servo_pos[i]);
+    Serial.println(i);
+    Serial.println(servo_pos[i]);
     servo[i].writeMicroseconds(servo_pos[i]);
 //    servo[i].writeMicroseconds(1500);
   }
